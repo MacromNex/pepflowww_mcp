@@ -1,0 +1,24 @@
+Peptide Sequence Analysis Summary
+=================================
+
+Total sequences analyzed: 8
+Average length: 9.4 ± 0.5
+Length range: 9 - 10
+
+Physicochemical Properties (Average):
+  Molecular weight: 1279.7 ± 239.2 Da
+  Hydrophobicity: -0.94 ± 1.42
+  Net charge: 2.1 ± 3.2
+  Flexibility: 0.21 ± 0.33
+  Aromaticity: 0.12 ± 0.12
+
+Druggability Assessment:
+  Average druggability score: 0.82
+  Peptides with high druggability (>0.6): 6/8
+  Cyclizable peptides: 8/8
+  Cell penetration potential: 5/8
+
+Top 3 sequences by druggability score:
+  cyclic_peptide_1: CYCLIGKRC (score: 1.00)
+  cyclic_peptide_3: RVTWYKLPC (score: 1.00)
+  cyclic_peptide_4: GFPSWQNMC (score: 1.00)

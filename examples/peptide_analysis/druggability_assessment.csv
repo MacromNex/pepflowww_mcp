@@ -1,0 +1,9 @@
+sequence_id,molecular_weight,hydrophobicity,net_charge,cysteine_count,disulfide_potential,flexibility,aromaticity,length,mw_acceptable,charge_acceptable,hydrophobicity_acceptable,cyclizable,cell_penetration_potential,druggability_score
+cyclic_peptide_1,1202.7,0.6333333333333333,2,3,True,0.1111111111111111,0.1111111111111111,9,True,True,True,True,True,1.0
+cyclic_peptide_2,1163.4,-0.32222222222222224,0,1,False,0.1111111111111111,0.1111111111111111,9,True,True,True,True,False,0.8
+cyclic_peptide_3,1309.5,-0.2666666666666667,2,1,False,0.1111111111111111,0.2222222222222222,9,True,True,True,True,True,1.0
+cyclic_peptide_4,1213.3000000000002,-0.3888888888888889,0,1,False,0.2222222222222222,0.2222222222222222,9,True,True,True,True,True,1.0
+cyclic_peptide_5,1145.2,-0.2333333333333334,-1,1,False,0.0,0.0,9,True,True,True,True,False,0.8
+linear_control,951.0000000000001,-1.0,0,0,False,1.0,0.0,10,True,True,True,True,False,0.8
+antimicrobial,1694.0000000000002,-2.1,6,0,False,0.0,0.3,10,True,False,False,True,True,0.6
+cell_penetrating,1558.8,-3.8699999999999997,8,0,False,0.1,0.0,10,True,False,False,True,True,0.6

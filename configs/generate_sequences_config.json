@@ -1,0 +1,43 @@
+{
+  "_description": "Configuration for cyclic peptide sequence generation script",
+  "_source": "Simplified from examples/use_case_2_sample_peptides.py",
+
+  "generation": {
+    "sequence_length_range": [6, 15],
+    "num_samples": 10,
+    "amino_acid_weights": "uniform",
+    "generation_method": "statistical_sampling"
+  },
+
+  "composition": {
+    "include_cysteines": true,
+    "cysteine_probability": 0.15,
+    "hydrophobic_bias": 0.3,
+    "charged_balance": true,
+    "ensure_even_cysteines": true
+  },
+
+  "amino_acid_weights": {
+    "uniform": {
+      "description": "Equal probability for all amino acids"
+    },
+    "natural": {
+      "description": "Based on natural peptide frequencies"
+    },
+    "hydrophobic_bias": {
+      "description": "Biased towards membrane-targeting peptides"
+    }
+  },
+
+  "output": {
+    "format": "fasta",
+    "add_metadata": true,
+    "include_properties": true
+  },
+
+  "constraints": {
+    "max_charge_imbalance": 3,
+    "min_hydrophobic_ratio": 0.2,
+    "max_hydrophobic_ratio": 0.8
+  }
+}
