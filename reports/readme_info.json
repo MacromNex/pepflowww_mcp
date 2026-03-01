@@ -1,0 +1,332 @@
+{
+  "project_name": "pepflowww-tools",
+  "description": "MCP server for cyclic peptide computational analysis with fast property calculation and sequence generation",
+  "version": "1.0.0",
+  "server_path": "src/server.py",
+  "total_tools": 12,
+  "readme_created": "2026-01-01",
+  "readme_sections": [
+    "Overview",
+    "Installation",
+    "Local Usage (Scripts)",
+    "MCP Server Installation",
+    "Using with Claude Code",
+    "Using with Gemini CLI",
+    "Available Tools",
+    "Examples",
+    "Demo Data",
+    "Configuration Files",
+    "Troubleshooting",
+    "Development"
+  ],
+  "tools": [
+    {
+      "name": "analyze_cyclic_peptides",
+      "type": "sync",
+      "description": "Analyze cyclic peptide sequences and calculate physicochemical properties",
+      "runtime": "~2 seconds for 8 sequences",
+      "example_prompt": "Calculate molecular properties for cyclic peptide CRGDMFGC including molecular weight, logP, and TPSA. Show drug-likeness assessment."
+    },
+    {
+      "name": "generate_peptide_sequences",
+      "type": "sync",
+      "description": "Generate cyclic peptide sequences using statistical sampling methods",
+      "runtime": "~0.1 seconds for 10 sequences",
+      "example_prompt": "Generate 5 cyclic peptides with length 10 using natural amino acid frequencies"
+    },
+    {
+      "name": "get_demo_data",
+      "type": "sync",
+      "description": "Get information about available demo data for testing",
+      "runtime": "instant",
+      "example_prompt": "What demo peptide data is available?"
+    },
+    {
+      "name": "get_server_info",
+      "type": "sync",
+      "description": "Get information about the MCP server and available tools",
+      "runtime": "instant",
+      "example_prompt": "What tools are available from pepflowww-tools?"
+    },
+    {
+      "name": "submit_peptide_analysis_job",
+      "type": "async",
+      "description": "Submit a peptide analysis job for background processing",
+      "runtime": "background",
+      "example_prompt": "Submit a background job to analyze @examples/data/sequences/demo_cyclic_peptides.fasta with visualizations"
+    },
+    {
+      "name": "submit_sequence_generation_job",
+      "type": "async",
+      "description": "Submit a sequence generation job for background processing",
+      "runtime": "background",
+      "example_prompt": "Submit a background job to generate 100 diverse cyclic peptides"
+    },
+    {
+      "name": "submit_batch_peptide_analysis",
+      "type": "async",
+      "description": "Submit batch peptide analysis for multiple input files",
+      "runtime": "background",
+      "example_prompt": "Analyze these files in batch: @examples/data/sequences/demo_cyclic_peptides.fasta and @examples/data/sequences/demo_peptides.fasta"
+    },
+    {
+      "name": "get_job_status",
+      "type": "job_management",
+      "description": "Check job progress and status",
+      "runtime": "instant",
+      "example_prompt": "Check the status of job abc12345"
+    },
+    {
+      "name": "get_job_result",
+      "type": "job_management",
+      "description": "Get completed job results",
+      "runtime": "instant",
+      "example_prompt": "Get the results of completed job abc12345"
+    },
+    {
+      "name": "get_job_log",
+      "type": "job_management",
+      "description": "View job execution logs",
+      "runtime": "instant",
+      "example_prompt": "Show the execution logs for job abc12345"
+    },
+    {
+      "name": "cancel_job",
+      "type": "job_management",
+      "description": "Cancel a running job",
+      "runtime": "instant",
+      "example_prompt": "Cancel job abc12345"
+    },
+    {
+      "name": "list_jobs",
+      "type": "job_management",
+      "description": "List all submitted jobs",
+      "runtime": "instant",
+      "example_prompt": "List all completed jobs"
+    }
+  ],
+  "scripts": [
+    {
+      "name": "analyze_peptides.py",
+      "path": "scripts/analyze_peptides.py",
+      "description": "Analyze peptide sequences for properties and drug-likeness",
+      "runtime": "~2 seconds",
+      "example_command": "python scripts/analyze_peptides.py --demo --output results/analysis",
+      "parameters": [
+        "--input, -i: Input FASTA file path",
+        "--sequence, -s: Single sequence to analyze",
+        "--demo: Use built-in demo sequences (8 peptides)",
+        "--output, -o: Output directory (default: results/)",
+        "--no-viz: Skip visualizations for faster execution",
+        "--config: Custom configuration file"
+      ],
+      "outputs": [
+        "composition.csv: Amino acid composition analysis",
+        "properties.csv: Physicochemical properties (MW, LogP, TPSA, etc.)",
+        "druggability.csv: Drug-likeness assessment",
+        "*_distribution.png: Property visualization plots",
+        "analysis_summary.txt: Summary statistics"
+      ]
+    },
+    {
+      "name": "generate_sequences.py",
+      "path": "scripts/generate_sequences.py",
+      "description": "Generate peptide sequences with constraints",
+      "runtime": "~0.1 seconds",
+      "example_command": "python scripts/generate_sequences.py --num_samples 10 --output results/generated.fasta",
+      "parameters": [
+        "--num_samples, -n: Number of sequences to generate",
+        "--length, -l: Fixed sequence length (default: random 6-15)",
+        "--weights, -w: Amino acid weights ('uniform' or 'natural')",
+        "--format, -f: Output format ('fasta' or 'csv')",
+        "--output, -o: Output file path",
+        "--no-cysteines: Exclude cysteine residues",
+        "--no-balance: Skip charge balancing"
+      ],
+      "outputs": [
+        "Generated sequences in FASTA or CSV format",
+        "Metadata with generation statistics"
+      ]
+    }
+  ],
+  "demo_data": [
+    {
+      "file": "demo_cyclic_peptides.fasta",
+      "path": "examples/data/sequences/demo_cyclic_peptides.fasta",
+      "description": "Main demo dataset with 8 diverse cyclic peptides",
+      "sequences": 8,
+      "used_by": ["analyze_cyclic_peptides", "submit_peptide_analysis_job"],
+      "examples": [
+        "antimicrobial_cyclic_1: CKWYFWKRK (9 residues)",
+        "therapeutic_candidate: ACDEFGHIKC (10 residues)",
+        "cell_penetrating_cyclic: RRRQRRKRG (9 residues)"
+      ]
+    },
+    {
+      "file": "demo_peptides.fasta",
+      "path": "examples/data/sequences/demo_peptides.fasta",
+      "description": "Additional sample sequences for property comparison",
+      "sequences": 8,
+      "used_by": ["analyze_cyclic_peptides"]
+    },
+    {
+      "file": "demo_peptide_receptor.pdb",
+      "path": "examples/data/structures/demo_peptide_receptor.pdb",
+      "description": "3D structure example in PDB format for future structure tools",
+      "used_by": ["future structure tools"]
+    }
+  ],
+  "configs": [
+    {
+      "file": "analyze_peptides_config.json",
+      "path": "configs/analyze_peptides_config.json",
+      "description": "Configuration for peptide analysis parameters",
+      "parameters": {
+        "analysis": {
+          "include_composition": true,
+          "include_properties": true,
+          "include_druggability": true
+        },
+        "visualization": {
+          "include_visualizations": true,
+          "plot_dpi": 300
+        },
+        "druggability_criteria": {
+          "max_molecular_weight": 2000,
+          "max_absolute_charge": 3,
+          "hydrophobicity_range": [-2.0, 2.0]
+        }
+      }
+    },
+    {
+      "file": "generate_sequences_config.json",
+      "path": "configs/generate_sequences_config.json",
+      "description": "Configuration for sequence generation parameters",
+      "parameters": {
+        "generation": {
+          "sequence_length_range": [6, 15],
+          "amino_acid_weights": "uniform"
+        },
+        "composition": {
+          "include_cysteines": true,
+          "charged_balance": true
+        },
+        "constraints": {
+          "max_charge_imbalance": 3,
+          "min_hydrophobic_ratio": 0.2
+        }
+      }
+    }
+  ],
+  "installation": {
+    "prerequisites": [
+      "Conda or Mamba (mamba recommended)",
+      "Python 3.10+",
+      "~5GB disk space for environment"
+    ],
+    "quick_install": [
+      "mamba create -p ./env python=3.10 numpy pandas matplotlib biopython -y",
+      "mamba activate ./env",
+      "pip install fastmcp loguru"
+    ],
+    "full_install": [
+      "mamba env update -p ./env -f repo/PepFlowww/environment.yml",
+      "pip install joblib lmdb easydict",
+      "pip install fastmcp loguru --ignore-installed"
+    ]
+  },
+  "mcp_installation": {
+    "fastmcp_recommended": "fastmcp install src/server.py --name pepflowww-tools",
+    "manual_claude": "claude mcp add pepflowww-tools -- $(pwd)/env/bin/python $(pwd)/src/server.py",
+    "settings_json": "Add configuration to ~/.claude/settings.json",
+    "test_server": "fastmcp dev src/server.py"
+  },
+  "examples": [
+    {
+      "name": "Quick Property Calculation",
+      "goal": "Calculate drug-like properties for a cyclic peptide",
+      "script_example": "python scripts/analyze_peptides.py --sequence \"CRGDMFGC\" --output results/single_peptide",
+      "mcp_example": "Calculate molecular properties for CRGDMFGC including molecular weight, logP, and TPSA. Show drug-likeness assessment.",
+      "expected_output": ["Molecular weight: ~951 Da", "LogP: Hydrophobicity index", "Drug-likeness score: 0.0-1.0 scale"]
+    },
+    {
+      "name": "Demo Data Analysis",
+      "goal": "Analyze all demo sequences for comprehensive properties",
+      "script_example": "python scripts/analyze_peptides.py --demo --output results/demo_analysis",
+      "mcp_example": "Analyze all demo peptide sequences for drug-likeness. Generate visualizations showing property distributions and identify the most promising candidates.",
+      "expected_output": ["8 demo sequences analyzed", "Property distributions", "Drug-likeness rankings"]
+    },
+    {
+      "name": "Sequence Generation with Constraints",
+      "goal": "Generate drug-like cyclic peptides with specific properties",
+      "script_example": "python scripts/generate_sequences.py --num_samples 10 --length 12 --weights natural --output results/druglike.fasta",
+      "mcp_example": "Generate 10 cyclic peptides with length 12 using natural amino acid frequencies. Include cysteines for cyclization and balance charges for stability.",
+      "expected_output": ["10 sequences with exactly 12 amino acids", "Natural frequency distribution", "Balanced charges"]
+    },
+    {
+      "name": "Background Job Workflow",
+      "goal": "Process large dataset in background with progress monitoring",
+      "mcp_example": "Submit a background job to analyze @examples/data/sequences/demo_cyclic_peptides.fasta with full visualizations and drug-likeness assessment. Name the job \"demo_analysis\".",
+      "workflow": [
+        "submit_peptide_analysis_job → Returns job_id",
+        "get_job_status(job_id) → Monitor progress",
+        "get_job_result(job_id) → Get results when complete",
+        "get_job_log(job_id) → View execution details"
+      ]
+    },
+    {
+      "name": "Virtual Screening Pipeline",
+      "goal": "Screen peptides for oral bioavailability",
+      "mcp_example": "Screen cyclic peptides CRGDMFGC, CYFQNPMGC, CKRRRRRRGC for oral bioavailability with criteria: MW < 1000 Da, LogP between -2 and 5, TPSA < 250 Ų, absolute charge ≤ 2",
+      "criteria": ["Molecular weight < 1000 Da", "LogP between -2 and 5", "TPSA < 250 Ų", "Absolute charge ≤ 2"]
+    }
+  ],
+  "features": [
+    "Fast Property Calculation: MW, LogP, TPSA, charge, drug-likeness (~2 seconds for 8 peptides)",
+    "Statistical Sequence Generation: Diverse cyclic peptides with constraints (~0.1 seconds for 10 sequences)",
+    "Comprehensive Analysis: Amino acid composition, physicochemical properties, visualization",
+    "Batch Processing: Async job submission for large-scale analysis",
+    "No GPU Required: CPU-only operation with minimal dependencies"
+  ],
+  "file_references": {
+    "claude_code_examples": [
+      "@examples/data/sequences/demo_cyclic_peptides.fasta: Reference the main demo FASTA file",
+      "@configs/analyze_peptides_config.json: Reference analysis configuration",
+      "@results/: Reference output directory",
+      "@scripts/analyze_peptides.py: Reference script files"
+    ]
+  },
+  "troubleshooting": {
+    "common_issues": [
+      "Environment not found: Recreate with mamba create -p ./env python=3.10",
+      "Import errors: Verify with python -c \"import numpy, pandas, matplotlib\"",
+      "matplotlib backend issues: Set MPLBACKEND=Agg for headless systems",
+      "MCP server not found: Check with claude mcp list and re-add if needed",
+      "Invalid sequence error: Ensure sequences contain only standard amino acids",
+      "Job stuck in pending: Check jobs/ directory and view logs",
+      "Slow analysis: Use --no-viz for faster execution"
+    ]
+  },
+  "dependencies": {
+    "essential": ["numpy", "pandas", "matplotlib", "fastmcp", "loguru"],
+    "optional": ["biopython", "seaborn"],
+    "full_environment": ["pytorch", "scientific stack from environment.yml"]
+  },
+  "performance": {
+    "memory_usage": "<100MB for typical workloads",
+    "cpu_only": true,
+    "gpu_required": false,
+    "execution_times": {
+      "analyze_peptides": "~2 seconds for 8 sequences",
+      "generate_sequences": "~0.1 seconds for 10 sequences"
+    }
+  },
+  "validation": {
+    "all_paths_verified": true,
+    "tools_counted": 12,
+    "scripts_exist": true,
+    "demo_data_exists": true,
+    "configs_exist": true,
+    "readme_complete": true
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "test_date": "2026-01-01T01:01:55.008007",
+  "server_path": "/home/xux/Desktop/CycPepMCP/CycPepMCP/tool-mcps/pepflowww_mcp/src/server.py",
+  "env_path": "/home/xux/Desktop/CycPepMCP/CycPepMCP/tool-mcps/pepflowww_mcp/env",
+  "python_path": "/home/xux/Desktop/CycPepMCP/CycPepMCP/tool-mcps/pepflowww_mcp/env/bin/python",
+  "tests": {
+    "python_version": {
+      "status": "passed",
+      "output": "Python 3.10.12",
+      "error": "",
+      "duration": 0.003484487533569336
+    },
+    "import_fastmcp": {
+      "status": "passed",
+      "output": "fastmcp OK",
+      "error": "",
+      "duration": 1.1277625560760498
+    },
+    "import_numpy": {
+      "status": "passed",
+      "output": "numpy OK",
+      "error": "",
+      "duration": 0.19943785667419434
+    },
+    "import_pandas": {
+      "status": "passed",
+      "output": "pandas OK",
+      "error": "",
+      "duration": 0.43799853324890137
+    },
+    "server_syntax": {
+      "status": "failed",
+      "output": "",
+      "error": "[Errno 2] No such file or directory: 'src/server.py'",
+      "duration": 0.04535794258117676
+    },
+    "mcp_registration": {
+      "status": "failed",
+      "output": "No MCP servers configured. Use `claude mcp add` to add a server.\n",
+      "error": "",
+      "duration": 0.9404904842376709
+    },
+    "tool_functionality": {
+      "status": "failed",
+      "output": "/home/xux/Desktop/CycPepMCP/CycPepMCP/tool-mcps/pepflowww_mcp/env/bin/python: can't open file '/home/xux/Desktop/CycPepMCP/CycPepMCP/tool-mcps/pepflowww_mcp/src/test_server_tools.py': [Errno 2] No such file or directory\n",
+      "error": "",
+      "duration": 0.026755809783935547
+    },
+    "job_manager": {
+      "status": "failed",
+      "output": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'src'\n",
+      "error": "",
+      "duration": 0.016983985900878906
+    },
+    "demo_data": {
+      "status": "warning",
+      "output": "Examples directory not found - demo data unavailable",
+      "error": "",
+      "duration": 0
+    }
+  },
+  "issues": [],
+  "summary": {
+    "total_tests": 9,
+    "passed": 4,
+    "failed": 4,
+    "warnings": 1,
+    "errors": 0,
+    "pass_rate": "44.4%",
+    "overall_status": "FAILED"
+  }
+}
