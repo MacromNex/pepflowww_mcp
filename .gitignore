@@ -36,3 +36,7 @@ test_batch_data/
 # OS files
 .DS_Store
 
+
+.gemini/
+qc_test_peptides
+test/
